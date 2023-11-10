@@ -1,0 +1,56 @@
+menu = '''
+
+[d] Depositar
+[s] Sacar
+[e] Extrato
+[q] Sair
+
+=> '''
+
+saldo = 0
+limite = 500
+numero_saques = 0
+LIMITE_SAQUES = 3
+extrato = []
+
+
+
+while  True:
+
+    opcao = input(menu)
+
+    if opcao == 'd':
+        valor = float(input('Valor depósito: '))
+        if valor <= 0:
+            valor = float(input('Valor depósito deve ser positivo: '))
+
+        saldo += valor
+        extrato.append(valor)
+
+    elif opcao == 's':
+        valor = float(input('Valor saque: '))
+        if saldo < valor:
+            print(f'Valor de saque superior ao saldo(R$ {saldo:.2f})')
+        else:
+            if valor <= 0:
+                valor = float(input('Valor saque deve ser positivo: '))
+            saldo -= valor
+            extrato.append(-valor)
+         
+
+    elif opcao == 'e':
+        if len(extrato) == 0:
+            print('Não foram realizadas movimentações.')
+        else:
+            print(f'EXTRATO: ')
+            for valor in extrato:
+                if valor > 0:
+                    print(f'depósito:  R$ {valor:.2f}')
+                else: print(f'   saque:  R$ {valor:.2f}')
+            print(f'   saldo:  R$ {saldo:.2f}') 
+
+    elif opcao == 'q':
+        break
+
+    else: print('Opção inválida')
+
