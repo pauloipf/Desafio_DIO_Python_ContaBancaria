@@ -46,12 +46,18 @@ while  True:
         if len(extrato) == 0:
             print('Não foram realizadas movimentações.')
         else:
-            print(f'EXTRATO: ')
+            print('''
+-----------------------------
+          Extrato
+-----------------------------
+  Tipo            Valor
+------------   --------------
+                  ''')
             for valor in extrato:
                 if valor > 0:
-                    print(f'depósito:  R$ {valor:>9,.2f}')
-                else: print(f'   saque:  R$ {valor:>9,.2f}')
-            print(f'   saldo:  R$ {saldo:>9,.2f}') 
+                    print(f'depósito \tR$ {valor:>9,.2f}')
+                else: print(f'saque \t\tR$ {valor:>9,.2f}')
+            print(f'saldo \t\tR$ {saldo:>9,.2f}') 
 
     elif opcao == 'q':
         break
