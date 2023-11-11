@@ -28,14 +28,18 @@ while  True:
         extrato.append(valor)
 
     elif opcao == 's':
-        valor = float(input('Valor saque: '))
-        if saldo < valor:
-            print(f'Valor de saque superior ao saldo(R$ {saldo:.2f})')
+        if numero_saques >= LIMITE_SAQUES:
+            print(f'Número de saques excedido({LIMITE_SAQUES})')
         else:
-            if valor <= 0:
-                valor = float(input('Valor saque deve ser positivo: '))
-            saldo -= valor
-            extrato.append(-valor)
+            valor = float(input('Valor saque: '))
+            if saldo < valor:
+                print(f'Valor de saque superior ao saldo(R$ {saldo:.2f})')
+            else:
+                if valor <= 0:
+                    valor = float(input('Valor saque deve ser positivo: '))
+                saldo -= valor
+                extrato.append(-valor)
+                numero_saques += 1
          
 
     elif opcao == 'e':
@@ -45,9 +49,9 @@ while  True:
             print(f'EXTRATO: ')
             for valor in extrato:
                 if valor > 0:
-                    print(f'depósito:  R$ {valor:.2f}')
-                else: print(f'   saque:  R$ {valor:.2f}')
-            print(f'   saldo:  R$ {saldo:.2f}') 
+                    print(f'depósito:  R$ {valor:>9,.2f}')
+                else: print(f'   saque:  R$ {valor:>9,.2f}')
+            print(f'   saldo:  R$ {saldo:>9,.2f}') 
 
     elif opcao == 'q':
         break
