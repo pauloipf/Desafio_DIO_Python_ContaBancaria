@@ -29,12 +29,7 @@ def apresentaExtrato(saldo,/,*, extrato):
         else: print(f'saque \t\tR$ {valor:>9,.2f}')
     print(f'saldo \t\tR$ {saldo:>9,.2f}') 
 
-def cadastrarUsuario(usuarios):
-    cpf = input('Informe o CPF: ')
-    usuario = buscarUsuario(cpf, usuarios)
-    if usuario:
-        print(f'Usuário, {usuario["nome"]}, já cadastrado!')
-        return
+def cadastrarUsuario(cpf, usuarios):
     nome = input('Nome: ')
     dataNascimento = input('Data de nascimento (dd-mm-aaaa): ')
     print('Endereço: ')
@@ -57,16 +52,17 @@ def cadastrarUsuario(usuarios):
 
 def buscarUsuario(cpf, usuarios):
     for usuario in usuarios:
-        if usuario["cpf"] == cpf
+        if usuario["cpf"] == cpf:
             return usuario
 
 menu = '''
 
-[d]/tDepositar
-[s]/tSacar
-[e]/tExtrato
-[q]/tSair
-[nu]/tCadastrar novo usuário 
+[d]\tDepositar
+[s]\tSacar
+[e]\tExtrato
+[c]\tCadastrar novo usuário 
+
+[q]\tSair
 
 => '''
 
@@ -106,8 +102,13 @@ while  True:
     elif opcao == 'q':
         break
 
-    elif opcao == 'nu':
-        cadastrarUsuario(listaUsuarios)
+    elif opcao == 'c':
+        cpf = input('Informe o CPF: ')
+        usuario = buscarUsuario(cpf, listaUsuarios)
+        if usuario:
+            print(f'Usuário já cadastrado!')
+        else:
+            cadastrarUsuario(cpf, listaUsuarios)
 
     else: print('Opção inválida')
 
