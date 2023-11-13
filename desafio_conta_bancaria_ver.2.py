@@ -56,7 +56,10 @@ def buscarUsuario(cpf, usuarios):
             return usuario
 
 menu = '''
+=========== MENU =============
 
+Cód\tOpção
+---\t----------------------
 [d]\tDepositar
 [s]\tSacar
 [e]\tExtrato
