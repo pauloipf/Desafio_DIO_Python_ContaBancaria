@@ -17,9 +17,8 @@ def sacar(*, saldo, valor):
 
 def apresentaExtrato(saldo,/,*, extrato):
     print('''
------------------------------
           Extrato
------------------------------
+=============================
   Tipo            Valor 
 ------------   --------------
                   ''')
@@ -41,7 +40,7 @@ def cadastrarUsuario(cpf, usuarios):
     estado = input('UF: ')
 
     usuarios.append({"cpf":cpf, 
-                     "Nome":nome, 
+                     "nome":nome, 
                      "dataNascimento":dataNascimento, 
                      "endereco":endereco,
                      "bairro":bairro, 
@@ -55,15 +54,35 @@ def buscarUsuario(cpf, usuarios):
         if usuario["cpf"] == cpf:
             return usuario
 
+def cadastrarConta(usuario, contas):
+    proxConta = len(contas)+1
+    contas.append({"agencia":AGENCIA,
+                   "conta":proxConta,
+                   "usuario":usuario
+                   })
+    print('Conta cadastrada com sucesso!')
+
+def listarContas(contas):
+    for conta in contas:
+        linha = f'''\
+Agência:\t{conta['agencia']}
+  Conta:\t{conta['conta']}
+Titular:\t{conta['usuario']['nome']}
+    CPF:\t{conta['usuario']['cpf']}'''
+        print(50 * '=')
+        print(linha)
+
+
 menu = '''
 =========== MENU =============
-
 Cód\tOpção
 ---\t----------------------
 [d]\tDepositar
 [s]\tSacar
 [e]\tExtrato
-[c]\tCadastrar novo usuário 
+[nu]\tCadastrar novo usuário
+[nc]\tCadastrar nova conta
+[lc]\tListar contas
 
 [q]\tSair
 
@@ -73,8 +92,10 @@ saldo = 0
 limite = 500
 numero_saques = 0
 LIMITE_SAQUES = 3
+AGENCIA = '0001'
 extrato = []
 listaUsuarios = []
+listaContas = []
 
 
 while  True:
@@ -105,13 +126,21 @@ while  True:
     elif opcao == 'q':
         break
 
-    elif opcao == 'c':
+    elif opcao == 'nu':
         cpf = input('Informe o CPF: ')
         usuario = buscarUsuario(cpf, listaUsuarios)
         if usuario:
             print(f'Usuário já cadastrado!')
         else:
             cadastrarUsuario(cpf, listaUsuarios)
+
+    elif opcao == 'nc':
+        cpfNovaConta = input('Informe o CPF: ')
+        usuario = buscarUsuario(cpfNovaConta, listaUsuarios)
+        cadastrarConta(usuario, listaContas)
+
+    elif opcao == 'lc':
+        listarContas(listaContas)
 
     else: print('Opção inválida')
 
