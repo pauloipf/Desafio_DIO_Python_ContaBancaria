@@ -137,10 +137,15 @@ while  True:
     elif opcao == 'nc':
         cpfNovaConta = input('Informe o CPF: ')
         usuario = buscarUsuario(cpfNovaConta, listaUsuarios)
-        cadastrarConta(usuario, listaContas)
+        if not usuario:
+            print(f'Usuário não cadastrado!')
+        else:
+            cadastrarConta(usuario, listaContas)
 
     elif opcao == 'lc':
         listarContas(listaContas)
 
     else: print('Opção inválida')
+
+    wait = input('\nPressione <ENTER> para continuar...\n')
 
